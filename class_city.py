@@ -14,10 +14,6 @@ class Station:
     def get_neighbor(self):
         return self.neighbor
 
-    def add_color(color):
-        self.color.append(color)
-
-
     def get_station_info(self):
         return (self.id, self.name)
 
@@ -27,32 +23,22 @@ class Line:
         self.line = list()
         self.color = color
 
-    def __getitem__(self, key):
-         return self.line[key]
-
     def add_station(self, station_object):
         self.line.append(station_object)
 
-    def get_station(self, name):
-        for station in self.line:
-            if station.get_station_info()[1] == name:
-                return station
-        return None
+    def get_station(self, ind=None):
+        if ind:
+            return self.line[ind]
+        else:
+            return self.line
 
     def set_station(self, station):
         self.line[-1].add_neighbor(station.get_station_info())
 
-    def edit_station(self, station, neighbor):
-        pass
 
 class Map:
     def __init__(self):
         self.map = dict()
-
-    def add_station(self, color, station):
-        if color not in self.map.keys():
-            self.map[color] = list()
-        self.map[color].append(station)
 
     def add_line(self, color, line_object):
         self.map[color] = line_object
@@ -96,8 +82,6 @@ def get_requirement(file_name):
 
 def create_map(file_name):
     # Create map
-    line_station = dict()
-    #key = (red, blue) or (blue, red); values= [], values[0] =(id_red, name_red), values[1] = (id_blue, name_blue)
     m = Map()
     content = read_file(file_name, 'create_map')
     color_section = content.split("#")[1:]
@@ -111,44 +95,23 @@ def create_map(file_name):
         for i in range(1, len(tmp)):
             info = tmp[i].split(':')
             station = Station(info[0], info[1])
-            # save connection to line_station
-            if(len(info) == 4):
-                info[3] = info[3][1:]
-                if info[1] not in line_station.keys():
-                    line_station[info[1]] = list()
-                if color not in line_station[info[1]]:
-                    line_station[info[1]].append(color)
-                if info[3] not in line_station[info[1]]:
-                    line_station[info[1]].append(info[3])
-            # add neighbor in a line and add line to map        
             if last_station == None:
                 last_station = station
             else:
                 station.add_neighbor(last_station.get_station_info())
                 line.set_station(station)
+                # print(line.get_station(-1).get_station_info())
+                # print(line.get_station(-1).get_neighbor())
                 last_station = station
             line.add_station(station)
         m.add_line(color, line)
-
-    # add neighbor of station which in many line
-
-
-def add_others_neighbor(line_station, m):
-    for keys, values in line_station.items():
-        neighbors = list()
-        for val in values:
-            tmp = m.map[val].get_station(keys)
-            if tmp is not None:
-                neighbors.extend(tmp.get_neighbor())
-        m.map[val]
-    
-        
     # for color in m.get_all_lines():
     #     for line_color in m.get_line(color):
-    # print(line_station)
-    print("........................")
-    return
-
+    for line in m.map:
+        for keys, values in m.map.items():
+            for station in values.line:
+                if station.get_station_info()[1] == 'Kashmere Gate':
+                    print(station.neighbor)
                 # print(station.get_station_info())
                 # print ("co neighbor la: ")
                 # print(station.neighbor)
@@ -156,10 +119,132 @@ def add_others_neighbor(line_station, m):
     return m
 
 create_map('file')
-exit()
-get_requirement('delhi')
+get_requirement('file')
 exit()
 
 # START=Red Line:15
 # END=Blue Line:36
 # TRAINS=30
+start = 0
+end = 0
+m = Map()
+f = open('file','r')
+lines = f.read()
+lines = lines.split('\n')
+
+for i in lines:
+    if i.startswith('#'):
+        try:
+            m.append_line(train)
+        except:
+            pass
+        train = Line(i[1:])
+    elif i[:1].isdigit():
+        if ":Conn:" not in i:
+            id, name = i.split(":", 1)
+            station = Station(id,name.strip(),None)
+            train.line.append(station)
+        else:
+            id, name, _, connect = i.split(":")
+            station = Station(id,name.strip(), connect.strip())
+            train.line.append(station)
+    elif "=" in i:
+        if "START" in i:
+            line_start, position = i.split()
+            _, color_start = line_start.split("=")
+            _, position_start = position.split(":")
+        elif  "END" in i:
+            line_end, position = i.split()
+            _, color_end = line_end.split("=")
+            _, position_end = position.split(":")
+        else:
+            _, leng_trains = i.split("=")
+
+station_names = {}
+for i in range(len(lines)):
+    if lines[i][:1].isdigit():
+        info = lines[i].split(":")
+        if len(info) == 2:
+            id, name = info[0], info[1]
+        elif len(info) == 4:
+            id, name, _, connect = info[0], info[1], info[2], info[3]
+        try:
+            if lines[i-1][:1].isdigit():
+                station_names[name].append(lines[i-1][lines[i-1].find(":")+1:])
+            if lines[i+1][:1].isdigit():
+                station_names[name].append(lines[i+1][lines[i+1].find(":")+1:])
+        except IndexError:
+            continue
+        except KeyError:
+            station_names[name] = []
+            if lines[i-1][:1].isdigit():
+                station_names[name].append(lines[i-1][lines[i-1].find(":")+1:])
+            if lines[i+1][:1].isdigit():
+                station_names[name].append(lines[i+1][lines[i+1].find(":")+1:])
+
+
+for i in range(len(m.map)):
+    # print(m.map[i].name)
+    # print(m.map[i].name)
+    for j in range(len(m.map[i].line)):
+        # print(m.map[i].line[j].connect)
+        # print(m.map[i])
+        if color_start in m.map[i].name and m.map[i].line[j].id == position_start:
+            start = m.map[i].line[j]
+            print( m.map[i].line[j].name)
+        if color_end in m.map[i].name and m.map[i].line[j].id == position_end:
+            end = m.map[i].line[j]
+            print( m.map[i].line[j].name)
+
+
+# print(color_start, position_start)
+# print("-------------------------")
+# print(color_end, position_end)
+# print("-------------------------")
+# print(leng_trains)
+
+
+def beautiful_dict(_dict):
+    for keys, values in _dict.items():
+        for i in range(len(values)):
+            tmp = _dict[keys][i].split(":")[0]
+            _dict[keys][i] = tmp
+    return _dict
+
+
+def bfs(m, color_start, start, color_end, end):
+    queue = collections.deque([[start]])
+    # print(start.id, start.name, start.connect)
+    seen = [start]
+    station_names = beautiful_dict(station_names)
+    while queue:
+        # tmp = queue.popleft()
+        # if color_start == color_end:
+        path = queue.popleft()
+        x = path[-1]
+        if x.id == end.id:
+            return path
+        for nearby in station_names[x]:
+            queue.append()
+        # for i in range(len(m.map)):
+        #     for j in range(len(m.map[i].line)):
+        #         if x
+        #         # print(m.map[i].name)
+        #         if color_start in m.map[i].name and m.map[i].line[j].name not in station_names[]:
+        #             print(path + [m.map[i].line[j]])
+        #             sleep(1)
+        #             queue.append(path + [m.map[i].line[j]])
+        #             seen.append(m.map[i].line[j])
+
+print(bfs(m, color_start, start, color_end, end))
+
+# for i in path:
+#     print(i.name)
+    # around = [[-1, 0], [1, 0], [0, 1], [0, -1]]
+    # path = [start]
+    # for i, j in around:
+    #     x = start[0] + i
+    #     y = start[1] + j
+    #     if grid[x][y] != "#" and grid[x][y] not in aphal:
+    #         path.append([x, y])
+    # return path
