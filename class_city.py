@@ -33,11 +33,11 @@ class Line:
     def add_station(self, station_object):
         self.line.append(station_object)
 
-    def get_station(self, ind=None):
-        if ind:
-            return self.line[ind]
-        else:
-            return self.line
+    def get_station(self, name):
+        for station in self.line:
+            if station.get_station_info()[1] == name:
+                return station
+        return None
 
     def set_station(self, station):
         self.line[-1].add_neighbor(station.get_station_info())
@@ -111,45 +111,44 @@ def create_map(file_name):
         for i in range(1, len(tmp)):
             info = tmp[i].split(':')
             station = Station(info[0], info[1])
+            # save connection to line_station
             if(len(info) == 4):
-                if tuple(sorted([color, info[3][1:]])) not in line_station.keys():
-                    line_station[tuple(sorted([color, info[3][1:]]))] = list()
-                # if(station not in line_station[tuple(sorted([color, info[3][1:]]))]):
-                line_station[tuple(sorted([color, info[3][1:]]))].append(station)
-
+                info[3] = info[3][1:]
+                if info[1] not in line_station.keys():
+                    line_station[info[1]] = list()
+                if color not in line_station[info[1]]:
+                    line_station[info[1]].append(color)
+                if info[3] not in line_station[info[1]]:
+                    line_station[info[1]].append(info[3])
+            # add neighbor in a line and add line to map        
             if last_station == None:
                 last_station = station
             else:
                 station.add_neighbor(last_station.get_station_info())
                 line.set_station(station)
-                # print(line.get_station(-1).get_station_info())
-                # print(line.get_station(-1).get_neighbor())
                 last_station = station
             line.add_station(station)
         m.add_line(color, line)
 
     # add neighbor of station which in many line
-    print("........................")
+
+
+def add_others_neighbor(line_station, m):
     for keys, values in line_station.items():
-        if(len(values) == 4):
-            print(keys)
-            for i in values:
-                print(i.get_station_info())
-        # if 3 == len(values):
-        # for i in range(len(keys)):
-        #     print(i)
-
-
+        neighbors = list()
+        for val in values:
+            tmp = m.map[val].get_station(keys)
+            if tmp is not None:
+                neighbors.extend(tmp.get_neighbor())
+        m.map[val]
+    
+        
     # for color in m.get_all_lines():
     #     for line_color in m.get_line(color):
     # print(line_station)
     print("........................")
     return
-    for line in m.map:
-        for keys, values in m.map.items():
-            for station in values.line:
-                if station.get_station_info()[1] == 'Kashmere Gate':
-                    print(station.neighbor)
+
                 # print(station.get_station_info())
                 # print ("co neighbor la: ")
                 # print(station.neighbor)
@@ -157,6 +156,7 @@ def create_map(file_name):
     return m
 
 create_map('file')
+exit()
 get_requirement('delhi')
 exit()
 
