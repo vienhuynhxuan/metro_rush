@@ -1,11 +1,24 @@
-a = [1, 2, 50, 3, 5, 7]
-l = len(a)
-print(len)
+class A:
+    def __init__(self):
+        self.number = 0
 
-for i in range(l):
-    print(a[i])
-    if(a[i] > 3):
-        a.append(0)
-        l = len(a)
-        print("len:", l)
-print(a)
+    def edit_value(self, num):
+        self.number = num
+
+class B:
+    def __init__(self):
+        self.list = list()
+
+    def add_ele(self, instance_A):
+        self.list.append(instance_A)
+
+    def get_ele(self):
+        return self.list[-1]
+
+a = A()
+b = B()
+b.add_ele(a)
+x = b.get_ele()
+x.edit_value(100)
+for e in b.list:
+    print(e.number)
