@@ -1,6 +1,6 @@
 import collections
 from time import time, sleep
-import queue
+import queue as Q
 
 class Station:
     def __init__(self, id, name):
@@ -16,7 +16,6 @@ class Station:
 
     def get_station_info(self):
         return (self.id, self.name)
-
 
 class Line():
     def __init__(self, color):
@@ -57,6 +56,10 @@ class Map:
 
     def get_all_lines(self):
         return self.map.keys()
+
+    def find_station(self, info):
+        line = self.map[info[1]]
+        return line.get_station(info[3])
 
 
 def read_file(file_name, choice):
@@ -137,14 +140,60 @@ def create_map(file_name):
         m.add_line(color, line)
 
     add_others_neighbor(line_station, m)
+    # for keys, values in m.map.items():
+    #     print(keys)
+    #     for station in values.line:
+    #         print("--", end = "")
+    #         print(station.get_station_info(), end= " co neighbor:\n")
+    #         for city in station.get_neighbor():
+    #             print("\t", city)
     return m
 
-create_map('file')
+def remove_element(lst, value):
+    print(lst)
+    for ele in lst:
+        if ele[1:] == value:
+            lst.remove(ele)
+    return lst
 
 
 def bfs(requirement, self):
+    transper = 0
+    path = []
+    visited = []
     print(requirement)
+    tmp = (0, "Red Line", '15', "Keshav Puram")
+    destination = ("Red Line", 12, "Shastri Nagar")
+    destination = ('Blue Line', '36', "Mayur Vihar Phase-1")
+    #destination = ('Red Line', '14', 'Kanhaiya Nagar')
+    queue = Q.PriorityQueue()
+    queue.put(tmp)
+    count = 0
+    while queue.qsize():
+        info_station = queue.get()
+        path.append(info_station)
+        if info_station[1:] == destination:
+            count += 1
+            path.append(path)
+            print("lennn: ", len(visited))
+            visited = remove_element(visited, destination)
+            print("lennn: ", len(visited))
+        station = self.find_station(info_station)
+        for ele in station.get_neighbor():
+            if ele not in visited:
+                print("elelele: ", ele)
+                visited.append(ele)
+                turn = info_station[0] + 1
+                if info_station[1] != ele[0]:
+                    transper += 1
+                    turn += 1
+                queue.put((turn, ) + ele)
+
+    print(transper)
+    print(len(path))
+    print(count)
 
 
+m = create_map('file')
 
-bfs(get_requirement('file'), 'ad')
+bfs(get_requirement('file'), m)

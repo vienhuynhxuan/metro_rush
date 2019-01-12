@@ -15,10 +15,11 @@ class B:
     def get_ele(self):
         return self.list[-1]
 
-a = A()
-b = B()
-b.add_ele(a)
-x = b.get_ele()
-x.edit_value(100)
-for e in b.list:
-    print(e.number)
+import queue as Q
+
+q = Q.PriorityQueue()
+print(type(q))
+q.put(("v", 1, "f"))
+q.put(("e", 1, "f"))
+q.put(("a", 1, "f"))
+print(q.get())
