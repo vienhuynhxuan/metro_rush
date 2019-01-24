@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sturdy-tenure-229322",
+  "private_key_id": "21c00491c170409bbd13dc369d1aee887cdf8006",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDbrnDw9ftlJR5p\nZdme++mNvbZ1rfPQwl5Q96xIfrNfwvhcQO9Vb+clJLDJq+MAISGo4OVyvxbFHjY/\ne/uHHlqvituJlj3Mdz6YdtSob4duw87UmTnOgmh7ax7bHFvdEIJ5dCLz8yCkYzP2\nUSxPXfjqkZu+zULPZK34pX2mCLK9beZTVUcTonDb2eu9ytbaCgMRbDIVaH3gJUEx\ncdb2EN/lTfKcjQ0hMqBeBcWXqpi5cAAv+Tf3/X9wPxNyhjH5MgIUia+xH1pEr76b\nL0kuJJjzKJ24dxxzSvD3/PhZDqI7BivZKX5lba8WzhOt9MrF0j9XM1RW8HhgJ5pg\nk4/QOOvpAgMBAAECggEACWkqJnBrMhSKfnph/bkN8sf/QoBOsxE4iCBsDXj8Byyr\nhgw0FIVkMgel2SXXZiCFOB5WRfmgqJYYPdT6W/n1aZK5v+WjRRiQomhoyMRqWVjj\nCeF8g/e7MRpQKpPG7avw4vISM0AllFU5myI0EzxT1vyg3uYdKBRIjZ/NR6kUux+f\nSoiG3YzY+N2kkcfIkfYaDUDcWKcA63pBrLASrzn8dC780euTe/AxAkAX07MReKFN\nKsCDCl5+3S7U1zDWve8VT5XeDk/j2H5lNpvBJV01st3/4gIrI4QmAQ73z3coL/eL\nnQfPk0cTn8uvbZRbLDQDzR/mn09HDKOXx2ZL+CGuWQKBgQD2ZAZMWfDUHUAjRClQ\n7J3xYYZNtnbSDzMCtdlyYN7nUUo2cCbU9Hfj9520eoZDBp/iboJYR1KYHPk5eU1c\nnH1QrIp4rB4cW6ySoHpfSa0yPfAe3TE9WCEQI282GuWBCakIru0GFA4nCPb7s2+t\nRfnYbL42XdPwV3gMMf14gyT/FQKBgQDkP7/roJlDl6eOztsqT3mnhCM0Vp1GAreB\n6y6tI2Gwhu9a417ARBoqSE5v3451L0E0C6BhryjmK1D5SxbT7IT7NF7PDZTDgX8G\n3fDjxbRxgZefovZBERtsddDWN981+LeVuy48T31y6TOUa8pkb3XsK0VnuNXsBnBT\nmMN3mShOhQKBgCp30x4V4oys/gEWHoj0P8T7Kkr6yEAsnn45GeG9EK6ONFxtuEO8\nX23LoEMbW0jyO1yr74uHv5S4abyeS9dKoc7l7ngeMpJwuq4LOwxxhojCZEDtny8T\noZ9GfES3Hhe/soLso64Ihufzg56erwEOrqG/HIoCYiVq7iYr96Rt9lKBAoGBAKam\nTRBS/9Q0JCjGq4pm4KIIflO2cbouPaHj/v52+NqUiqpHnGSw1JHOnUZdaXvx9p9z\nZbQs2aXENqjtxEsTQ7zN7fMrLVTZdc+juD/1l9vQDM6Hg1jajrVQCByASr7zS8dN\nFWL/fs6pqflSAkH2h5jZtyEV+UsNIHJI9V6bOqypAoGBAKzGEAS0GdEL/A5oQ1qh\nQX0JzIcnosc4K/JT3ViEsAoSRhig2zLpF7z/wxylBBlUwMwk34V7fJup2YsJF1qN\nWp6W11FmrtBmUZaHxkIAtjExbOlQAfr+YygGMX0ktmMHXl4sHcTMi6Kl0g63RR5v\npV8831hsob/edEDUWbWpjg7w\n-----END PRIVATE KEY-----\n",
+  "client_email": "titeo-messi@sturdy-tenure-229322.iam.gserviceaccount.com",
+  "client_id": "100916611241497541058",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/titeo-messi%40sturdy-tenure-229322.iam.gserviceaccount.com"
+}
